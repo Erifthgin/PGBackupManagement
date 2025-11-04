@@ -1,0 +1,85 @@
+﻿<Window x:Class="PGBackupManagement.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PGBackupManagement" xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+        mc:Ignorable="d"
+        Title="Управление базой (бэкап)" Height="591" Width="385">
+    <Grid>
+        <mah:ProgressRing x:Name="LoadingProgressBar"
+            Width="40"
+            Height="40"
+            IsActive="False"
+            Foreground="#02ACED"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"/>
+        
+        <Label Content="Выберите папку PostgreSQL" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+        <TextBox Text="{Binding SettingModel.PostgresPath}" Name="FolderPath" HorizontalAlignment="Left" Margin="10,41,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="314"/>
+        <Button Content="Выбрать" HorizontalAlignment="Left" Margin="329,41,0,0" VerticalAlignment="Top" Click="SelectFolderClick" Width="27"/>
+        <GroupBox Header="Подключение к исходному серверу" Margin="10,65,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="354" Height="192">
+            <Grid Margin="10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="200"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                </Grid.RowDefinitions>
+
+                <Label Grid.Row="0" Grid.Column="0" Content="Хост" Margin="0,0,8,6" VerticalAlignment="Center"/>
+                <TextBox Grid.Row="0" Grid.Column="1" Margin="0,0,0,6" Text="{Binding SettingModel.ExternalServer.Host}"/>
+
+                <Label Grid.Row="1" Grid.Column="0" Content="Порт" Margin="0,0,8,6" VerticalAlignment="Center"/>
+                <TextBox Grid.Row="1" Grid.Column="1" Margin="0,0,0,6" Text="{Binding SettingModel.ExternalServer.Port}"/>
+
+                <Label Grid.Row="2" Grid.Column="0" Content="Пользователь" Margin="0,0,8,6" VerticalAlignment="Center"/>
+                <TextBox Grid.Row="2" Grid.Column="1" Margin="0,0,0,6" Text="{Binding SettingModel.ExternalServer.User}"/>
+
+                <Label Grid.Row="3" Grid.Column="0" Content="Пароль" Margin="0,0,8,6" VerticalAlignment="Center"/>
+                <PasswordBox Name="ExternalServerPassword" Grid.Row="3" Grid.Column="1" Margin="0,0,0,6"/>
+
+                <Label Grid.Row="4" Grid.Column="0" Content="бд" Margin="0,0,8,6" VerticalAlignment="Center"/>
+                <TextBox Grid.Row="4" Grid.Column="1" Margin="0,0,0,6" Text="{Binding SettingModel.ExternalServer.DatabaseName}"/>
+            </Grid>
+        </GroupBox>
+        <GroupBox Header="Подключение к выбранному серверу" Margin="10,304,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="354">
+            <Grid Margin="10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="200"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                </Grid.RowDefinitions>
+
+                <Label Grid.Row="0" Grid.Column="0" Content="Хост" Margin="0,0,8,6" VerticalAlignment="Center"/>
+                <TextBox Grid.Row="0" Grid.Column="1" Margin="0,0,0,6" Text="{Binding SettingModel.InternalServer.Host}"/>
+
+                <Label Grid.Row="1" Grid.Column="0" Content="Порт" Margin="0,0,8,6" VerticalAlignment="Center"/>
+                <TextBox Grid.Row="1" Grid.Column="1" Margin="0,0,0,6" Text="{Binding SettingModel.InternalServer.Port}"/>
+
+                <Label Grid.Row="2" Grid.Column="0" Content="Пользователь" Margin="0,0,8,6" VerticalAlignment="Center"/>
+                <TextBox Grid.Row="2" Grid.Column="1" Margin="0,0,0,6" Text="{Binding SettingModel.InternalServer.User}"/>
+
+                <Label Grid.Row="3" Grid.Column="0" Content="Пароль" Margin="0,0,8,6" VerticalAlignment="Center"/>
+                <PasswordBox Name="InternalServerPassword" Grid.Row="3" Grid.Column="1" Margin="0,0,0,6"/>
+
+                <Label Grid.Row="4" Grid.Column="0" Content="бд" Margin="0,0,8,6" VerticalAlignment="Center"/>
+                <TextBox Grid.Row="4" Grid.Column="1" Margin="0,0,0,6" Text="{Binding SettingModel.InternalServer.DatabaseName}"/>
+            </Grid>
+        </GroupBox>
+        <CheckBox Content="Подключение к серверу совпадает" IsChecked="{Binding SettingModel.CopyServer}" HorizontalAlignment="Left"
+                  Click="ConnectionMatchCheck" Margin="10,271,0,0" VerticalAlignment="Top" Width="295"/>
+        <Button Name="RunBackupButton" Content="Запустить" HorizontalAlignment="Left" Margin="10,511,0,0" VerticalAlignment="Top" Width="354" Click="RunClick" />
+    </Grid>
+</Window>
